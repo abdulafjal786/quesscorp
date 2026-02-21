@@ -71,7 +71,7 @@ lib/
 
 Create .env.local in root:
 
-DJANGO_API_URL=http://15.206.128.232
+DJANGO_API_URL=http://13.233.178.226
 
 ⚠️ Do NOT wrap values in quotes
 ⚠️ Restart dev server after changes
@@ -163,3 +163,4 @@ JWT Authentication
 
 Abdul Afjal
 Full Stack Developer
+
