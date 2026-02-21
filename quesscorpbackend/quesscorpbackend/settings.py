@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-awvvg+7_83+=s0m6ywfu4yqn8+aw3)h36&1+m6abr*5062q*uf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["13.233.178.226","127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'quesscorpbackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "out")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,6 +74,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'quesscorpbackend.wsgi.application'
 
@@ -92,6 +94,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:8000",
+    "http://13.233.178.226:3000",
 ]
 
 # Password validation
@@ -128,9 +132,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = '/_next/'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'out', '_next'),
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Static files (CSS, JS, images)
+STATIC_URL = '/static/'
+
+# Directory where collectstatic will put all static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Optional: additional locations to find static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

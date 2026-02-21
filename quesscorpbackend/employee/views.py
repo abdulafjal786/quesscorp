@@ -9,17 +9,14 @@ from rest_framework.generics import ListAPIView
 
 from rest_framework.filters import SearchFilter
 
-# View all employees
 class EmployeeListView(generics.ListAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-# Add a new employee
 class EmployeeCreateView(generics.CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-# Delete an employee
 class EmployeeDeleteView(generics.DestroyAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
@@ -46,7 +43,6 @@ class MarkAttendanceView(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Normalize status
         status_value = status_value.lower()
 
         if status_value not in ['present', 'absent']:
@@ -56,13 +52,10 @@ class MarkAttendanceView(generics.CreateAPIView):
             )
 
         try:
-            # Try to get the employee
             employee = Employee.objects.get(id=employee_id)
         except Employee.DoesNotExist:
-            # Maybe the ID is the employee_id field, not the primary key
             try:
                 employee = Employee.objects.get(employee_id=employee_id)
-                # Use the primary key for the foreign key
                 employee_id = employee.id
             except Employee.DoesNotExist:
                 return Response(
@@ -70,7 +63,6 @@ class MarkAttendanceView(generics.CreateAPIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
 
-        # Now create or update the attendance
         try:
             attendance, created = Attendance.objects.update_or_create(
                 employee_id=employee_id,
